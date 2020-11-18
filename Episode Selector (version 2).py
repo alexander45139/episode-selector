@@ -50,14 +50,15 @@ def select_random_story():
 
 # converts a time measurement into its number of days and returns it
 def convert_time_measurement_into_days(measurement):
-    number = []
-    for digit in measurement:
+    number = []  # number as an array
+    for digit in measurement:  # this for loop adds each digit and point in the string argument to number
         if digit == " ":
             break
         else:
             number.append(digit)
-    number = int("".join(number))
-    
+    number = int("".join(number))  # the array joined as as a string to then be converted into a number
+
+    # depending on the measurement given, number is converted into the number of days
     if "year" in measurement:
         days = 365 * number
     elif "month" in measurement:
@@ -65,7 +66,7 @@ def convert_time_measurement_into_days(measurement):
     elif "week" in measurement:
         days = 7 * number
     
-    return days
+    return days  # number of days is returned
 
 # returns the content in a given file, ending in "Stories", as an array
 def collect_csv_content(FILE):
@@ -111,24 +112,24 @@ def rewrite_csv(FILE):
 
 # writes today's date next to the randomly selected story
 def stamp_date():
-    series[random_index][len(series[random_index]) - 1] = date.today()
+    series[random_index][len(series[random_index]) - 1] = date.today()  # value of last watched item in the selected sub array becomes today's date
     rewrite_csv(selected_series)
 
 # writes " " to the randomly selected story
 def unstamp_date():
-    series[random_index][len(series[random_index]) - 1] = " "
+    series[random_index][len(series[random_index]) - 1] = " "  # value of last watched item in the selected sub array becomes a space character (as a sort of null value)
     rewrite_csv(selected_series)
 
 
 #root
 root = Tk()
-root.title("Episode Selector")
-root.geometry("600x400")
+root.title("Episode Selector")  # title of the window
+root.geometry("600x400")  # window size
 
 
 #TITLE
-title_heading = Label(root, text="Episode Selector")
-title_heading.pack()
+title_heading = Label(root, text="Episode Selector")  # title heading label in the window
+title_heading.pack()  # displays the Label object
 
 
 #TV SERIES SELECTOR
@@ -139,9 +140,9 @@ series_variable.set("Select a series to pick a random story")  # default value
 series_selector = OptionMenu(root, series_variable, *series_list, command=set_up_random_selector)  # an drop down menu to select a TV series
 series_selector.pack()
 
-Label(root, text="Filter out last watched:").pack()
-filtered_variable = StringVar(root)
-filtered_variable.set("1 year")
+Label(root, text="Filter out last watched:").pack()  # a Label
+filtered_variable = StringVar(root)  # default value for a dropdown list
+filtered_variable.set("1 year")  # sets the value
 filtered_episode_count = OptionMenu(root, filtered_variable, "1 year", "6 months", "3 months", "2 months", "1 month", "2 weeks")  # drop menu to filter the number of max. eps a story has in order to be chosen
 filtered_episode_count.pack()
 
